@@ -6,6 +6,8 @@
 
 using namespace std;
 
+void assembleLine(string line);
+
 int main() {
 
     ifstream asm_file;
@@ -33,12 +35,21 @@ int main() {
             while(getline(text, tok, '\n')) // Tokenize each line with the newline character.
             {
                 stringstream line(tok);
-                while(getline(line, tok, ' ')) // Tokenize each
-                {
-                    cout << tok << endl;
-                }
+                if(line.str().length() == 0)
+                    continue;
+                else
+                    assembleLine(tok);
+                
             }
         }
     }
     return 0;
+}
+
+void assembleLine(string line)
+{
+    char * str = (char*) malloc(line.length()+1);
+    strcpy(str, line.c_str());
+    char * instruction = strtok(str, " ");
+    cout << "Instruction: " << instruction << endl;
 }
