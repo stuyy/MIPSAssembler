@@ -6,6 +6,18 @@
 
 using namespace std;
 
+string parseLine(string str)
+{
+    int i = 0;
+    while(str[i] != '\0')
+    {
+        if(str[i] == '\n')
+            str[i] = ' ';
+        i++;
+    }
+    return str;
+}
+
 int main() {
 
     ifstream asm_file;
@@ -22,13 +34,23 @@ int main() {
 
         if(str.find(".data") == 0 || str.find(".data")) // If there is a data segment, we shall start parsing from .data. Since there's a .data, there NEEDS to be a .text
         {
-            cout << "Yes";
-            cout << str.substr(str.find(".data"), str.find(".text")) << endl;
+            string line = str.substr(str.find(".data"), str.find(".text"));
         }
-        if(str.find(".text")) // If there is a text segment, we shall start parsing from .text
+        if(str.find(".text") == 0 || str.find(".text")) // If there is a text segment, we shall start parsing from .text
         {
-            cout << str.find(".text") << endl;
-            cout << str.substr(str.find(".text")) << endl;
+            string textSegment = str.substr(str.find(".text"));
+            
+            //textSegment = parseLine(textSegment);
+            stringstream text(textSegment);
+            string tok;
+            while(getline(text, tok, '\n')) // Tokenize each line with the newline character.
+            {
+                stringstream line(tok);
+                while(getline(line, tok, ' ')) // Tokenize each
+                {
+                    cout << tok << endl;
+                }
+            }
         }
     }
     return 0;
