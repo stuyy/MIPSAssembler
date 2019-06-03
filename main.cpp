@@ -15,23 +15,20 @@ int main() {
     if(asm_file.is_open())
     {
         cout << "Sucess\n";
-        // while(std::getline(asm_file, line))
-        // {
-        //     istringstream stream(line);
-        //     string token;
-        //     // while(getline(stream, token, ' '))
-        //     // {
-                
-                
-        //     // }
-        // }
 
         stringstream stream;
         stream << asm_file.rdbuf();
         string str = stream.str();
-        if(str.find(".text"))
+
+        if(str.find(".data") == 0 || str.find(".data")) // If there is a data segment, we shall start parsing from .data. Since there's a .data, there NEEDS to be a .text
         {
-            cout << "Found" << endl;
+            cout << "Yes";
+            cout << str.substr(str.find(".data"), str.find(".text")) << endl;
+        }
+        if(str.find(".text")) // If there is a text segment, we shall start parsing from .text
+        {
+            cout << str.find(".text") << endl;
+            cout << str.substr(str.find(".text")) << endl;
         }
     }
     return 0;
