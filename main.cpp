@@ -6,18 +6,6 @@
 
 using namespace std;
 
-string parseLine(string str)
-{
-    int i = 0;
-    while(str[i] != '\0')
-    {
-        if(str[i] == '\n')
-            str[i] = ' ';
-        i++;
-    }
-    return str;
-}
-
 int main() {
 
     ifstream asm_file;
@@ -40,7 +28,6 @@ int main() {
         {
             string textSegment = str.substr(str.find(".text"));
             
-            //textSegment = parseLine(textSegment);
             stringstream text(textSegment);
             string tok;
             while(getline(text, tok, '\n')) // Tokenize each line with the newline character.
