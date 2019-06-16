@@ -1,8 +1,8 @@
-all: main.cpp
-	g++ main.cpp -o main.o && ./main.o
+all: ./src/main.cpp
+	g++ ./src/main.cpp -o ./bin/main.o && ./bin/main.o
 
-main: main.cpp
-	g++ main.cpp -o main.o
+main: ./src/main.cpp
+	g++ ./src/main.cpp -o ./bin/main.o
 
 run: main.o
-	./main.o
+	./bin/main.o
