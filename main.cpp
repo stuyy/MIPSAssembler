@@ -1,12 +1,14 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <bits/stdc++.h>
 #include <stdlib.h>
+#include <string.h>
+#include <sstream>
 
 using namespace std;
 
 void assembleLine(string line);
+char * getRegister(char * line);
 
 int main() {
 
@@ -16,8 +18,6 @@ int main() {
 
     if(asm_file.is_open())
     {
-        cout << "Sucess\n";
-
         stringstream stream;
         stream << asm_file.rdbuf();
         string str = stream.str();
@@ -28,22 +28,27 @@ int main() {
         }
         if(str.find(".text") == 0 || str.find(".text")) // If there is a text segment, we shall start parsing from .text
         {
-            string textSegment = str.substr(str.find(".text"));
+            string textSegment = str.substr(str.find(".text")); // Get the substring after '.text'
             
             stringstream text(textSegment);
             string tok;
             while(getline(text, tok, '\n')) // Tokenize each line with the newline character.
             {
                 stringstream line(tok);
-                if(line.str().length() == 0)
+                if(line.str().length() == 0) // If blank line, skip
                     continue;
                 else
-                    assembleLine(tok);
-                
+                    assembleLine(tok); // Assemble the current line.
             }
         }
     }
     return 0;
+}
+
+char * getRegister()
+{
+    char * tok = strtok(NULL, " ,");
+    return tok;
 }
 
 void assembleLine(string line)
@@ -51,5 +56,23 @@ void assembleLine(string line)
     char * str = (char*) malloc(line.length()+1);
     strcpy(str, line.c_str());
     char * instruction = strtok(str, " ");
-    cout << "Instruction: " << instruction << endl;
+    if(strcmp(instruction, "add") == 0)
+    {
+        cout << "Add instruction" << endl;
+        char * token = getRegister();
+        cout << "Destination = " << token << endl;
+        token = getRegister();
+        cout << "Source = " << token << endl;
+        token = getRegister();
+        cout << "Target = " << token << endl;
+    }
+    else if(strcmp(instruction, "li") == 0) 
+    {
+        cout << "Load Immediate Instruction " << instruction << endl;
+        char * dest = getRegister();
+        int immediate = atoi(getRegister());
+        cout << "Dest: " << dest << endl;
+        cout << "Immediate: " << immediate << endl;
+    }
+    else if(strcmp(instruction, ""));
 }

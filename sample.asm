@@ -10,4 +10,3 @@ add $t3, $t1, $t2
 
 addi $sp, $sp, -4
 sw $t3, 0($sp)
-
