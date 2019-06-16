@@ -74,5 +74,16 @@ void assembleLine(string line)
         cout << "Dest: " << dest << endl;
         cout << "Immediate: " << immediate << endl;
     }
+    else if(strcmp(instruction, "addi") == 0)
+    {
+        char * dest = getRegister();
+        char * target = getRegister();
+        int immediate = atoi(getRegister());
+        cout << dest << " " << target << " " << immediate << endl;
+    }
+    else if(strcmp(instruction, "and") == 0)
+    {
+        
+    }
     else if(strcmp(instruction, ""));
 }
